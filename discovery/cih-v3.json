@@ -1,0 +1,1057 @@
+{
+  "basePath": "/cih/v3/",
+  "baseUrl": "https://www.googleapis.com/cih/v3/",
+  "batchPath": "batch/cih/v3",
+  "description": "Retrieving customer interactions API.",
+  "discoveryVersion": "v1",
+  "documentationLink": "https://sites.google.com/a/google.com/cih/engineering/eng-documents",
+  "etag": "\"-2NioU2H8y8siEzrBOV_qzRI6kQ/LmuenDCqKBnVGWWc1GVCrSVTmdg\"",
+  "icons": {
+    "x16": "https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png",
+    "x32": "https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png"
+  },
+  "id": "cih:v3",
+  "kind": "discovery#restDescription",
+  "name": "cih",
+  "ownerDomain": "google.com",
+  "ownerName": "Google",
+  "parameters": {
+    "alt": {
+      "default": "json",
+      "description": "Data format for the response.",
+      "enum": [
+        "json"
+      ],
+      "enumDescriptions": [
+        "Responses with Content-Type of application/json"
+      ],
+      "location": "query",
+      "type": "string"
+    },
+    "fields": {
+      "description": "Selector specifying which fields to include in a partial response.",
+      "location": "query",
+      "type": "string"
+    },
+    "key": {
+      "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+      "location": "query",
+      "type": "string"
+    },
+    "oauth_token": {
+      "description": "OAuth 2.0 token for the current user.",
+      "location": "query",
+      "type": "string"
+    },
+    "prettyPrint": {
+      "default": "true",
+      "description": "Returns response with indentations and line breaks.",
+      "location": "query",
+      "type": "boolean"
+    },
+    "quotaUser": {
+      "description": "An opaque string that represents a user for quota purposes. Must not exceed 40 characters.",
+      "location": "query",
+      "type": "string"
+    },
+    "userIp": {
+      "description": "Deprecated. Please use quotaUser instead.",
+      "location": "query",
+      "type": "string"
+    }
+  },
+  "protocol": "rest",
+  "resources": {
+    "associatedEmails": {
+      "methods": {
+        "create": {
+          "description": "Associates an AdWords customer id to an email address.",
+          "httpMethod": "PUT",
+          "id": "cih.associatedEmails.create",
+          "parameterOrder": [
+            "customerId"
+          ],
+          "parameters": {
+            "customerId": {
+              "description": "The AdWords customer Id the email will be associated to.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "path": "associatedEmails/insert/{customerId}",
+          "request": {
+            "$ref": "AssociatedEmail"
+          },
+          "response": {
+            "$ref": "AssociatedEmail"
+          }
+        },
+        "delete": {
+          "description": "Dissociates an AdWords customer id from an email address.",
+          "httpMethod": "DELETE",
+          "id": "cih.associatedEmails.delete",
+          "parameterOrder": [
+            "customerId",
+            "emailAddress",
+            "operator"
+          ],
+          "parameters": {
+            "customerId": {
+              "description": "The AdWords customer Id the email will be dissociated from.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "emailAddress": {
+              "description": "The email address.",
+              "location": "query",
+              "required": true,
+              "type": "string"
+            },
+            "operator": {
+              "description": "The program or person who initiated the operation.",
+              "location": "query",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "path": "associatedEmails/delete/{customerId}"
+        }
+      }
+    },
+    "userInteractions": {
+      "methods": {
+        "get": {
+          "description": "Gets an interaction.",
+          "httpMethod": "GET",
+          "id": "cih.userInteractions.get",
+          "parameterOrder": [
+            "entityType",
+            "entityId",
+            "timestamp",
+            "interactionType"
+          ],
+          "parameters": {
+            "entityId": {
+              "description": "Represents the Id of the Entity whose interaction will be returned.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "entityType": {
+              "description": "Represents the Type of the entity whose interaction will be returned. Possible Values: COMPANY, ADWORDS_CID, EMAIL, ADDRESS_DIGEST, GAIA_ID.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "interactionType": {
+              "description": "The type of the interaction to be returned.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "timestamp": {
+              "description": "the timestamp of the interaction to be returned. It is measured as the number of microseconds since the Epoch.",
+              "format": "uint64",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "path": "userInteractions/{entityType}/{entityId}/{timestamp}/{interactionType}",
+          "response": {
+            "$ref": "UserInteraction"
+          }
+        },
+        "insert": {
+          "description": "Inserts a new interaction to CIH.",
+          "httpMethod": "POST",
+          "id": "cih.userInteractions.insert",
+          "path": "userInteractions/insert",
+          "request": {
+            "$ref": "UserInteraction"
+          },
+          "response": {
+            "$ref": "UserInteraction"
+          }
+        },
+        "list": {
+          "description": "Get a list of interactions for the given entity and its relatives if requested. The returned list is sorted by timestamp in descending order.",
+          "httpMethod": "GET",
+          "id": "cih.userInteractions.list",
+          "parameterOrder": [
+            "entity"
+          ],
+          "parameters": {
+            "entity": {
+              "description": "List of entities to retrieve. At least one item must be present. Each item must be in 'ENTITY_TYPE:ENTITY_ID' format which ENTITY_TYPE is COMPANY, ADWORDS_CID, EMAIL, ADDRESS_DIGEST or GAIA_ID.",
+              "location": "query",
+              "repeated": true,
+              "required": true,
+              "type": "string"
+            },
+            "entityFilter": {
+              "description": "Primary or secondary entities, if available only interactions whose primary or secondary entities are given are returned. For info about the format of this field see the comments of UserInteractionsApiaryFilter proto.",
+              "location": "query",
+              "repeated": true,
+              "type": "string"
+            },
+            "excludePassedInteractionOrigin": {
+              "description": "Indicates the inclusive or exclusive behavior of interactionOrigin field. See the description of interactionOrigin.",
+              "location": "query",
+              "type": "boolean"
+            },
+            "excludePassedInteractionType": {
+              "description": "Indicates the inclusive or exclusive behavior of interactionType field. See the description of interactionType.",
+              "location": "query",
+              "type": "boolean"
+            },
+            "includeRelatedInteractions": {
+              "description": "By default, all interactions which apply to any member of the entity structure which contains the provided entity are returned. If include_related_interactions is false, then only the interactions which are associated directly with this entity are returned, and neither parent_entity nor child_entities in the Entity object returned by this operation are populated.",
+              "location": "query",
+              "type": "boolean"
+            },
+            "interactionOrigin": {
+              "description": "This limit is ignored if absent and all interactions regardless of their origin will be returned. Otherwise the meaning of this field depends on the include_interaction_origin field. 1. exclude_passed_interaction_origin is true: Only interactions whose Origin is contained in interaction_origin will be returned. 2. exclude_passed_interaction_origin is false: Only interactions whose Origin isn't contained in interaction_origin will be returned.",
+              "location": "query",
+              "repeated": true,
+              "type": "string"
+            },
+            "interactionType": {
+              "description": "This limit is ignored if absent and all interactions regardless of their type will be returned. Otherwise the meaning of this field depends on the exclude_passed_interaction_type field. 1. exclude_passed_interaction_type is true: Only interactions whose Type is contained in interaction_type will be returned. 2. exclude_passed_interaction_type is false: Only interactions whose Type isn't contained in interaction_type will be returned.",
+              "location": "query",
+              "repeated": true,
+              "type": "string"
+            },
+            "lookup_participant_info": {
+              "description": "Request to get additional information about interaction participants, such as names, email addresses. May increase latency of this call.",
+              "location": "query",
+              "type": "boolean"
+            },
+            "maxInteractionsPerPage": {
+              "description": "The limit on the number of returned interactions. This is the maximum number of interactions which will be returned, starting with the most recent. Thie default value is 100. If it is equal to zero then only the entity structure is returned.",
+              "format": "int32",
+              "location": "query",
+              "type": "integer"
+            },
+            "maxResults": {
+              "description": "The maximum number of results per page.",
+              "format": "uint32",
+              "location": "query",
+              "type": "integer"
+            },
+            "metaTypeFilter": {
+              "description": "Represents the interaction's classification. Possible values: SALES, SUPPORT, MARKETING. For more info see http://go/cih-gt-api",
+              "location": "query",
+              "repeated": true,
+              "type": "string"
+            },
+            "minMainEntityInteractions": {
+              "description": "Attempt to read at least this many main entity interactions. The default value is set to 0. Pagination is disabled if a positive value is set.",
+              "format": "int32",
+              "location": "query",
+              "type": "integer"
+            },
+            "pageToken": {
+              "description": "The pagination token.",
+              "location": "query",
+              "type": "string"
+            },
+            "phoneMatcher": {
+              "description": "If available only interactions whose phone number is given are returned. For info about the format of this field see the comments of UserInteractionsApiaryFilter proto.",
+              "location": "query",
+              "repeated": true,
+              "type": "string"
+            },
+            "timestampEnd": {
+              "description": "Upper limit on the timestamp for the returned interactions. It is measured as the number of microseconds since the Epoch.",
+              "format": "uint64",
+              "location": "query",
+              "type": "string"
+            },
+            "timestampStart": {
+              "description": "Lower limit on the timestamp for the returned interactions. It is measured as the number of microseconds since the Epoch.",
+              "format": "uint64",
+              "location": "query",
+              "type": "string"
+            }
+          },
+          "path": "userInteractions",
+          "response": {
+            "$ref": "UserInteractionsListResponse"
+          }
+        }
+      }
+    }
+  },
+  "revision": "20131022",
+  "rootUrl": "https://www.googleapis.com/",
+  "schemas": {
+    "AdoptionInteraction": {
+      "description": "Contains the Adoption specific data for UserInteractions of type ADOPTION.",
+      "id": "AdoptionInteraction",
+      "properties": {
+        "latestTreatmentInstanceTimestamp": {
+          "description": "The timestamp, in microseconds since Epoch, of the latest treatment interaction that contributed to this adoption event.",
+          "format": "uint64",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "AdvertiserExperienceData": {
+      "description": "Contains the Adoption specific data for UserInteractions of type ADOPTION from ADVERTISER_EXPERIENCE source.",
+      "id": "AdvertiserExperienceData",
+      "properties": {
+        "treatmentInstanceId": {
+          "description": "A list of adopted treatment instance ids. Will use for adoption event.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "AssociatedEmail": {
+      "description": "Contains AssociatedEmail structure fields.",
+      "id": "AssociatedEmail",
+      "properties": {
+        "emailAddress": {
+          "description": "The email address.",
+          "type": "string"
+        },
+        "kind": {
+          "default": "cih#associatedEmail",
+          "description": "Represents associated email structure data.",
+          "type": "string"
+        },
+        "operator": {
+          "description": "The program or person who initiated the operation.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "CasesData": {
+      "description": "Contains Cases Specific data stored in UserInteractions.",
+      "id": "CasesData",
+      "properties": {
+        "agent": {
+          "$ref": "CasesInteractionSource",
+          "description": "The agent who initiated this interaction."
+        },
+        "assignedGaia": {
+          "description": "The agent (Gaia ID) this case was assigned to at the point of this action.",
+          "format": "int64",
+          "type": "string"
+        },
+        "emailType": {
+          "description": "The type of the email. Only available for the user interaction of email type. Possible values: SUPPORT_EMAIL, MARKETING_EMAIL, SYSTEM_EMAIL, GRM_EMAIL, BOB_EMAIL.",
+          "type": "string"
+        },
+        "messageId": {
+          "description": "This ID will be globally unique even between different cases.",
+          "type": "string"
+        },
+        "state": {
+          "description": "The state of the case at the point when the interaction occurs. Possible values: NEW, ASSIGNED, UNASSIGNED, IN_CONSULT, NEED_INFO, SOLUTION_OFFERED, FINISHED, MERGED, DELETED, BLOCKED_BY.",
+          "type": "string"
+        },
+        "userId": {
+          "$ref": "UserId",
+          "description": "The user id which is involved in the interaction."
+        }
+      },
+      "type": "object"
+    },
+    "CasesInteractionSource": {
+      "description": "Container for the entity responsible for adding or modifying a label, an attribute, or a message.",
+      "id": "CasesInteractionSource",
+      "properties": {
+        "id": {
+          "description": "Only routing rule can have multiple values. For systems like UDS this field is empty. Note: The id should be the gaia id if type == USER. If so, it is stored as contact_gaia_id in the enclosing UserInteraction proto.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "type": {
+          "description": "Type of the source. Possible values: ROUTING_RULE, USER, API, EMAIL_PROC, CHAT_SUPPORT_BOT, OUTBOX_SENDER, UDS, MEDLEY, FINISHER, OUT_OF_OFFICE, ATLAS, CUF. For more info see //customer_support/cih/proto/cases_data.proto.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ChatInteraction": {
+      "description": "Contains the Chat specific data for UserInteractions of type GOAL.",
+      "id": "ChatInteraction",
+      "type": "object"
+    },
+    "EmailInteraction": {
+      "description": "Contains the Email specific data for UserInteractions of type GOAL.",
+      "id": "EmailInteraction",
+      "type": "object"
+    },
+    "Entity": {
+      "description": "Contains Entity structure fields.",
+      "id": "Entity",
+      "properties": {
+        "childEntity": {
+          "description": "Child entities of the Entity.",
+          "items": {
+            "$ref": "Entity"
+          },
+          "type": "array"
+        },
+        "deprecated": {
+          "description": "Indicates the entity opt out of the chief company bigtable",
+          "type": "boolean"
+        },
+        "entityId": {
+          "description": "The identifier associated with thie Entity. For ADWORDS_CID it is the customer id. For PARENT_COMPANY, CHILD_COMPANY, DIVISION or COMPANY it is the company id. For EMAIL it is the email address. For ADDRESS_DIGEST it is the SHA-1 digest of the email address.",
+          "type": "string"
+        },
+        "entityType": {
+          "description": "The type of the entity. Possible values: PARENT_COMPANY, CHILD_COMPANY, DIVISION, ADWORDS_CID, EMAIL, COMPANY, ADDRESS_DIGEST. For more info see: //customer_support/cih/proto/entity.proto.",
+          "type": "string"
+        },
+        "kind": {
+          "default": "cih#entity",
+          "description": "Represents entity structure data.",
+          "type": "string"
+        },
+        "linkedByAdsdb": {
+          "description": "This flag is only available for any parent AdWords account entity of an email entity or any child email entity of an AdWords account entity. If the flag is true, the linkage of the AdWords account and the email is from the AdsDb. If the flag is false, it is from other sources such as gCases. Note, for either an AdWords account or an email, there is at most one linkage from AdsDb.",
+          "type": "boolean"
+        },
+        "parentEntity": {
+          "description": "Parent entities of the Entity.",
+          "items": {
+            "$ref": "Entity"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "GammaData": {
+      "description": "Contains the Gama specific data for UserInteractions from Gamma source.",
+      "id": "GammaData",
+      "properties": {
+        "campaignId": {
+          "description": "Campaign id is the primary identifier for an email blast.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "dispatchId": {
+          "description": "A dispatch is a particular mailing of a campaign.",
+          "format": "int64",
+          "type": "string"
+        },
+        "experimentId": {
+          "description": "Experiment id is a controlled variation on a particular dispatch of a campaign. It is being deprecated in favor of node id.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "gammaProductId": {
+          "description": "GAMMA Product ID. For more info please see java/com/google/ads/crm/gamma/common/domain/Product.java",
+          "format": "int32",
+          "type": "integer"
+        },
+        "nodeId": {
+          "description": "A node is a controlled variation on a particular dispatch of a campaign.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "uaid": {
+          "$ref": "Uaid",
+          "description": "UAID of the recipient of the email, if available."
+        }
+      },
+      "type": "object"
+    },
+    "GenieData": {
+      "description": "Contains Genie specific data for UserInteractions of from Genie source.",
+      "id": "GenieData",
+      "properties": {
+        "enteredText": {
+          "description": "If type = REQUEST_RECOMMENDATION, store the user signals.",
+          "type": "string"
+        },
+        "sessionId": {
+          "description": "A join key for interactions, used to follow the user through multiple Genie interactions.",
+          "type": "string"
+        },
+        "type": {
+          "description": "Type of the Genie interaction. Possible values: REQUEST_RECOMMENDATION, SELECT_RECOMMENDATION, ENTER_TEXT, DISMISS_GENIE. For more info see: //customer_support/cih/proto/genie_data.proto.",
+          "type": "string"
+        },
+        "userAgent": {
+          "description": "User agent.",
+          "type": "string"
+        },
+        "userIp": {
+          "description": "The IP address of the user.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "GoalInteraction": {
+      "description": "Contains the Goal specific data for UserInteractions of type GOAL.",
+      "id": "GoalInteraction",
+      "properties": {
+        "status": {
+          "description": "The status of goal interaction. Possible values: OPEN, WON, LOST, ABANDONED.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "GreenTeaData": {
+      "description": "Contains all the specific fields for UserInteractions from GreenTea source.",
+      "id": "GreenTeaData",
+      "properties": {
+        "meetingMethodDetail": {
+          "description": "Additional information about the the meeting method (e.g. phone number, email address, hangout link). This is a copy of meeting_method_detail field in MeetingPB proto. The source of this field is a free-form text.",
+          "type": "string"
+        },
+        "opportunityId": {
+          "description": "PKs of Opportunity table.",
+          "items": {
+            "format": "int64",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "GrmData": {
+      "description": "Contains all the specific fields for UserInteractions from GRM source.",
+      "id": "GrmData",
+      "properties": {
+        "agencyId": {
+          "description": "Some company ids represent real-world agencies to GRM. If the interaction applies to an agency this value will be set.",
+          "format": "int64",
+          "type": "string"
+        },
+        "contactLdap": {
+          "description": "The LDAP of the internal Google owner of this interaction.",
+          "type": "string"
+        },
+        "intentId": {
+          "description": "This field indicates the Interaction Intent. The intents are stored externally.",
+          "items": {
+            "format": "int64",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "HangoutInteraction": {
+      "description": "Contains the Phone specific data for UserInteractions of type HANGOUT.",
+      "id": "HangoutInteraction",
+      "type": "object"
+    },
+    "HelpcenterData": {
+      "description": "Contains the Helpcenter specific data for UserInteractions from Helpcenter source.",
+      "id": "HelpcenterData",
+      "properties": {
+        "internalHelpCenterName": {
+          "description": "Internal name is unique and maps to gKMS.",
+          "type": "string"
+        },
+        "isApiClient": {
+          "description": "Was purely API or from UI?",
+          "type": "boolean"
+        },
+        "referer": {
+          "description": "Referrer (http) for request.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "IncentiveInteraction": {
+      "description": "Contains the Incentive specific data for UserInteractions of type INCENTIVE.",
+      "id": "IncentiveInteraction",
+      "properties": {
+        "monetaryReward": {
+          "description": "The data of monetary reward of coupon code",
+          "properties": {
+            "amountMicros": {
+              "description": "Reward value represented in micros of the reward currency.",
+              "format": "int64",
+              "type": "string"
+            },
+            "currencyCode": {
+              "description": "Currency code as defined by Unicode's \"CLDR\", itself based on ISO 4217 (e.g., \"USD\").",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "description": "The type of the Incentive Interaction. Possible values: COUPON_CODE_REDEEMED, REWARD_GRANTED, COUPON_CODE_REDEEMED_REWARD_GRANTED.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "IncentivesData": {
+      "description": "Contains IncentivesData structure fields.",
+      "id": "IncentivesData",
+      "properties": {
+        "campaignId": {
+          "description": "Foreign keys of related objects within go/Incentives system. (Coupon code is sent as source_system_primary_key field).",
+          "format": "int64",
+          "type": "string"
+        },
+        "couponId": {
+          "description": "The Id of the coupon.",
+          "format": "int64",
+          "type": "string"
+        },
+        "incentiveBatchId": {
+          "description": "The batch Id of the incentive.",
+          "format": "int64",
+          "type": "string"
+        },
+        "incentiveId": {
+          "description": "the Id of the incentive.",
+          "format": "int64",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "MarketingEmailInteraction": {
+      "description": "Contains Marketing data specific for marketing email UserInteractions.",
+      "id": "MarketingEmailInteraction",
+      "properties": {
+        "bounced": {
+          "description": "If false, the mail was delivered. If true, mail delivery may have been re-attempted but it is possible the mail never made it to the intended recipient.",
+          "type": "boolean"
+        },
+        "clicked": {
+          "description": "If true, one or more non-opt-out links in the email have been clicked and the opt-out link click has not been clicked.",
+          "type": "boolean"
+        },
+        "emailAddressDigest": {
+          "description": "SHA-1 Digest of the normalized destination (To:) email address. We don't store the raw address.",
+          "type": "string"
+        },
+        "fromAddress": {
+          "description": "The from address of the email.",
+          "type": "string"
+        },
+        "opened": {
+          "description": "If true, the email has been opened and the opt-out link click has not been clicked.",
+          "type": "boolean"
+        },
+        "optoutClicked": {
+          "description": "If true, the user clicked on the opt-out link in the email some time after the email was sent.",
+          "type": "boolean"
+        },
+        "type": {
+          "description": "Possible values: SENT, BOUNCED, OPENED, CLICKED, OPTOUT_CLICKED. For types other than SENT, the optional boolean field will be set to true, and the interaction timestamp will indicate the time of the post-send event. For SENT, the optional boolean fields reflect a summary of all post-send events and more than one may be true. Note: we might not have OPEN event even if the interaction is already opened and and clicked.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "MeetingInteraction": {
+      "description": "Contains the Meeting specific data to the Meeting UserInteractions.",
+      "id": "MeetingInteraction",
+      "properties": {
+        "status": {
+          "description": "Meeting status. Possible values: CREATED, MODIFIED, DELETED.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "NoteInteraction": {
+      "description": "Contains Note specific data for the Note UserInteractions.",
+      "id": "NoteInteraction",
+      "properties": {
+        "status": {
+          "description": "Note status. Possible values: CREATED, MODIFIED, DELETED.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Participant": {
+      "description": "Contains the Participant data.",
+      "id": "Participant",
+      "properties": {
+        "contactId": {
+          "description": "GreenTea contact id if the participant is a GreenTea contact.",
+          "type": "string"
+        },
+        "email": {
+          "description": "Participant's email. If the interaction included email address, e.g email message, this field contains the sanitized address used in this interaction. If the interaction did not have email address, this field will contain the email address for the first Profile returned by Focus Backend Service",
+          "type": "string"
+        },
+        "familyName": {
+          "type": "string"
+        },
+        "gaiaId": {
+          "description": "GAIA id of the participant.",
+          "format": "int64",
+          "type": "string"
+        },
+        "givenName": {
+          "type": "string"
+        },
+        "name": {
+          "description": "Name of the participant. Depending on the source of interaction, the name may be either in unstructured or structured form.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "PartnerSearchData": {
+      "description": "Contains partner search specific data for UserInteractions.",
+      "id": "PartnerSearchData",
+      "type": "object"
+    },
+    "PhoneInteraction": {
+      "description": "Contains the Phone specific data for UserInteractions of type GOAL.",
+      "id": "PhoneInteraction",
+      "type": "object"
+    },
+    "TaskInteraction": {
+      "description": "Contains Task specific data for UserInteractions of type TASK.",
+      "id": "TaskInteraction",
+      "properties": {
+        "status": {
+          "description": "Task status. Possible values: OPEN, CLOSED.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "TraxAgent": {
+      "description": "Contains the specific data for Trax Agent.",
+      "id": "TraxAgent",
+      "properties": {
+        "email": {
+          "description": "The agent's email.",
+          "type": "string"
+        },
+        "gaiaId": {
+          "description": "The agent's gaia Id. It is an unobfuscated GaiaID.",
+          "type": "string"
+        },
+        "name": {
+          "description": "The agent's name.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "TraxData": {
+      "description": "Contains Trax specific data to the UserInteractions of type TRAX.",
+      "id": "TraxData",
+      "properties": {
+        "actionType": {
+          "description": "The type of action that occurred. Possible values: NONE, INJECT, CLOSE, ASSIGN, ROUTE, EXPIRE, DELETE, OUTGOING_CONSULT, INCOMING_CONSULT, REPLY, REOPEN, BULK, UNBULK, BOUNCE, STIFLED_ACKNOWLEDGE, STIFLED_AUTO_RESPOND, CANCEL, MOVE, POSTPONE, SURVEY_SCHEDULED, SURVEY_SENT, CONSULT_INJECTED, MSG_SENT, LBL_APPLY, LBL_REMOVE, MOVE_IN. For more information see //customer_support/cih/proto/trax_data.proto.",
+          "type": "string"
+        },
+        "agent": {
+          "$ref": "TraxAgent",
+          "description": "Data of the agent that performed the action."
+        },
+        "assignedAgent": {
+          "$ref": "TraxAgent",
+          "description": "For a reassign action, this is the agent that the ticket was assigned to."
+        },
+        "messageId": {
+          "description": "The message Id.",
+          "type": "string"
+        },
+        "state": {
+          "description": "Trax state. Possible values: OPEN, CLOSED, PENDING, REOPENED, POSTPONED, BULKED, DELETED, DELAYED, WAITING, BROKEN, NEW, ASSIGNED, UNASSIGNED, IN_CONSULT, NEED_INFO, SOLUTION_OFFERED, FINISHED, MERGED. For more info see //customer_support/cih/proto/trax_data.proto.",
+          "type": "string"
+        },
+        "userId": {
+          "$ref": "UserId",
+          "description": "The user Id of the ticket. It should contain email address for the TraxData."
+        }
+      },
+      "type": "object"
+    },
+    "TraxInteraction": {
+      "description": "Contains the Trax specific data for UserInteractions.",
+      "id": "TraxInteraction",
+      "properties": {
+        "type": {
+          "description": "The type of the Trax interaction. Possible values: EMAIL, PHONE, NOTE, CHAT, STUB.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Uaid": {
+      "description": "CIH copy of the UAID proto. We don't store UAIDs as a 64-bit number instead we store them into two different fields: Product and Account Id. Account Id is string so it can be anything, for example in +Pages it's a Gaia Id.",
+      "id": "Uaid",
+      "properties": {
+        "account_id": {
+          "description": "Account id.",
+          "type": "string"
+        },
+        "product": {
+          "description": "Product ID component of the UAID.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "UserCommData": {
+      "description": "Contains UserComm specific data for UserInteractions.",
+      "id": "UserCommData",
+      "type": "object"
+    },
+    "UserId": {
+      "description": "The user Id of the user interaction. At least one of the following three fields gaia_id, email, customer_id exists.",
+      "id": "UserId",
+      "properties": {
+        "customerId": {
+          "description": "customer id.",
+          "type": "string"
+        },
+        "email": {
+          "description": "email address.",
+          "type": "string"
+        },
+        "gaiaId": {
+          "description": "The unobfuscated Gaia id.",
+          "type": "string"
+        },
+        "name": {
+          "description": "The name.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "UserInteraction": {
+      "description": "The structure of UserInteractions.",
+      "id": "UserInteraction",
+      "properties": {
+        "adoptionInteraction": {
+          "$ref": "AdoptionInteraction",
+          "description": "available if the interaction is an ADOPTION type interaction."
+        },
+        "advertiserExperienceData": {
+          "$ref": "AdvertiserExperienceData",
+          "description": "Contains Advertiser Experience data for interactions from ADVERTISER_EXPERIENCE origin."
+        },
+        "casesData": {
+          "$ref": "CasesData",
+          "description": "Contains Cases data for interactions from CASES origin."
+        },
+        "chatInteraction": {
+          "$ref": "ChatInteraction",
+          "description": "Available if the interaction is a CHAT type interaction."
+        },
+        "contactGaiaId": {
+          "description": "The Gaia ID of the primary Google Contact/CSR involved in this interaction. Only certain types of interactions and origin systems provide this information. It is a string of digits in base 10.",
+          "type": "string"
+        },
+        "customer": {
+          "description": "Google user or customer participant.",
+          "items": {
+            "$ref": "Participant"
+          },
+          "type": "array"
+        },
+        "detailedDescription": {
+          "description": "For detailed_description, only the first 512 characters are stored. If truncation was necessary, detailed_description_truncated will be true. Use the source_system_primarykey if necessary to refer back to the original object for more information rather than duplicating it.",
+          "type": "string"
+        },
+        "detailedDescriptionTruncated": {
+          "description": "Indicates if the detailedDescription is truncated.",
+          "type": "boolean"
+        },
+        "emailInteraction": {
+          "$ref": "EmailInteraction",
+          "description": "Available if the interaction is an EMAIL type interaction."
+        },
+        "entity": {
+          "$ref": "Entity",
+          "description": "Only entity_id and entity_type of the following field is set. parent_entity and child_entities are not used here."
+        },
+        "gammaData": {
+          "$ref": "GammaData",
+          "description": "Contains Gamma data for interactions from GAMMA origin."
+        },
+        "genieData": {
+          "$ref": "GenieData",
+          "description": "Contains Genie data for interactions from GENIE origin."
+        },
+        "goalInteraction": {
+          "$ref": "GoalInteraction",
+          "description": "Available if the interaction is a GOAL type interaction."
+        },
+        "googler": {
+          "description": "Google participants. Can be full-time Googlers, interns, TVCs.",
+          "items": {
+            "$ref": "Participant"
+          },
+          "type": "array"
+        },
+        "greenTeaData": {
+          "$ref": "GreenTeaData",
+          "description": "Contains Green Tea data for interactions from GREENTEA origin."
+        },
+        "grmData": {
+          "$ref": "GrmData",
+          "description": "Contains GRM data for interactions from GRM origin."
+        },
+        "hangoutInteraction": {
+          "$ref": "HangoutInteraction",
+          "description": "available if the interaction is an HANGOUT type interaction."
+        },
+        "helpcenterData": {
+          "$ref": "HelpcenterData",
+          "description": "Contains Helpcenter data for interactions from HELPCENTER origin."
+        },
+        "incentiveInteraction": {
+          "$ref": "IncentiveInteraction",
+          "description": "available if the interaction is an INCENTIVE type interaction."
+        },
+        "incentivesData": {
+          "$ref": "IncentivesData",
+          "description": "Contains Incentive data for interactions from INCENTIVES origin."
+        },
+        "initiator": {
+          "$ref": "Participant",
+          "description": "Initiator of the interaction."
+        },
+        "interactionOrigin": {
+          "description": "The origin of the interaction. This field with source_system_primary_key uniquely determines the foreign key. Possible values: GENIE_SOURCE, GRM_SOURCE, CASES_SOURCE, GAMMA_SOURCE, TRAX_SOURCE, HELPCENTER_SOURCE.",
+          "type": "string"
+        },
+        "interactionType": {
+          "description": "The type of the interaction. Possible values: STUB, PHONE, CHAT, EMAIL GOAL, TASK, NOTE, MEETING, MARKETING_EMAIL, TRAX, SUMMARY, HELPCENTER.",
+          "type": "string"
+        },
+        "kind": {
+          "default": "cih#userInteraction",
+          "description": "Kind of this resource.",
+          "type": "string"
+        },
+        "language": {
+          "description": "This stores a canonical language code as specified in go/iii. Use one of the converter classes (e.g. LanguageCode.forString()) to convert this to an enum.",
+          "type": "string"
+        },
+        "marketingEmailInteraction": {
+          "$ref": "MarketingEmailInteraction",
+          "description": "Available if the interaction is a MARKETING_EMAIL type interaction."
+        },
+        "meetingInteraction": {
+          "$ref": "MeetingInteraction",
+          "description": "Available if the interaction is a MEETING type interaction."
+        },
+        "metaType": {
+          "description": "Interaction classification for CRM use cases. See http://go/cih-gt-api for details.",
+          "type": "string"
+        },
+        "noteInteraction": {
+          "$ref": "NoteInteraction",
+          "description": "Available if the interaction is a NOTE type interaction."
+        },
+        "otherParticipant": {
+          "description": "Other participant, such as maillist, GAIA group. May contain participants for which CIH was not able to determine if they are either Googler or Customer.",
+          "items": {
+            "$ref": "Participant"
+          },
+          "type": "array"
+        },
+        "partnerSearchData": {
+          "$ref": "PartnerSearchData",
+          "description": "Contains Partner Search data for interactions from PARTNERSEARCH origin."
+        },
+        "phoneInteraction": {
+          "$ref": "PhoneInteraction",
+          "description": "Available if the interaction is a PHONE type interaction."
+        },
+        "sourceSystemPrimaryKey": {
+          "description": "Primary key of the interaction.",
+          "type": "string"
+        },
+        "summary": {
+          "description": "If the interaction has one description, use summary. If it has a subject or summary and a longer description, use detailed_descripton for the body. For summary, only the first 128 characters are stored. If truncation was necessary, summary_truncated will be true.",
+          "type": "string"
+        },
+        "summaryTruncated": {
+          "description": "Indicates if the summary is truncated.",
+          "type": "boolean"
+        },
+        "taskInteraction": {
+          "$ref": "TaskInteraction",
+          "description": "Available if the interaction is a TASK type interaction."
+        },
+        "timestamp": {
+          "description": "Timestamp of the interaction as the number of microseconds since the Epoch.",
+          "format": "uint64",
+          "type": "string"
+        },
+        "traxData": {
+          "$ref": "TraxData",
+          "description": "Contains Trax data for interactions from TRAX origin."
+        },
+        "traxInteraction": {
+          "$ref": "TraxInteraction",
+          "description": "Available if the interaction is a TRAX type interaction."
+        },
+        "userCommData": {
+          "$ref": "UserCommData",
+          "description": "Contains UserComm data for interactions from USERCOMM origin."
+        }
+      },
+      "type": "object"
+    },
+    "UserInteractionsListResponse": {
+      "description": "Response to UserInteractions.list. Contains Entity and UserInteraction data",
+      "id": "UserInteractionsListResponse",
+      "properties": {
+        "entity": {
+          "description": "Entity structures to be returned.",
+          "items": {
+            "$ref": "Entity"
+          },
+          "type": "array"
+        },
+        "items": {
+          "description": "UserInteractions.",
+          "items": {
+            "$ref": "UserInteraction"
+          },
+          "type": "array"
+        },
+        "kind": {
+          "default": "cih#userInteractionsList",
+          "description": "Kind of this resource.",
+          "type": "string"
+        },
+        "nextPageToken": {
+          "description": "Token to pass in for pagination for the next page. Token is present only if more interactions are available.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "servicePath": "cih/v3/",
+  "title": "Customer Interaction History API",
+  "version": "v3"
+}
