@@ -45,6 +45,7 @@ import * as books from './books';
 import * as calendar from './calendar';
 import * as chat from './chat';
 import * as chromeuxreport from './chromeuxreport';
+import * as cih from './cih';
 import * as civicinfo from './civicinfo';
 import * as classroom from './classroom';
 import * as cloudasset from './cloudasset';
@@ -229,6 +230,7 @@ export const APIS: APIList = {
   calendar: calendar.VERSIONS,
   chat: chat.VERSIONS,
   chromeuxreport: chromeuxreport.VERSIONS,
+  cih: cih.VERSIONS,
   civicinfo: civicinfo.VERSIONS,
   classroom: classroom.VERSIONS,
   cloudasset: cloudasset.VERSIONS,
@@ -410,6 +412,7 @@ export class GeneratedAPIs {
   calendar = calendar.calendar;
   chat = chat.chat;
   chromeuxreport = chromeuxreport.chromeuxreport;
+  cih = cih.cih;
   civicinfo = civicinfo.civicinfo;
   classroom = classroom.classroom;
   cloudasset = cloudasset.cloudasset;
